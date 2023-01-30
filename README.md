@@ -29,3 +29,5 @@ https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f
 
 >Preparación de Entrevistas de Programación
 
+
+>Seguridad de la información
