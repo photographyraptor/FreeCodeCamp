@@ -27,7 +27,4 @@ https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f
 >Librerías de desarrollo de la interfaz
 
 
->Preparación de Entrevistas de Programación
-
-
 >Seguridad de la información
