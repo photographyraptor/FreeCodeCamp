@@ -16,7 +16,7 @@ https://www.freecodecamp.org/espanol/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43
 
 >[Desarrollo Back End y APIs](https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43/back-end-development-and-apis)
 
->Diseño Web Adaptativo
+>[Diseño Web Adaptativo](https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43/responsive-web-design)
 
 >Librerías de desarrollo de la interfaz
 
