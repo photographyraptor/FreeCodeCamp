@@ -18,6 +18,6 @@ https://www.freecodecamp.org/espanol/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43
 
 >[Diseño Web Adaptativo](https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43/responsive-web-design)
 
->[Librerías de desarrollo de la interfaz](https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43/front-end-development-libraries) <- refactor pending
+>[~~Librerías de desarrollo de la interfaz~~](https://www.freecodecamp.org/espanol/certification/fccc6b1c390-d18f-44c2-ab27-4f2b3c07ad43/front-end-development-libraries)
 
 >Seguridad de la información
