@@ -16,7 +16,7 @@ class App extends React.Component {
     let hist = "";
     let val = "";
 
-    switch (v) {
+    switch (v) { //pending setState
       case "AC":
         break;
       case "/","X","-","+":
