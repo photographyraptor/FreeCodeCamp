@@ -92,26 +92,53 @@ def _cleanCategories(categories):
 
     return categSpent
 
-def _getPercentile(nth, categories):
+def _getPercentile(nth, cleanData):
     line = ""
     if (nth == 0):
-        line += "  0| "
+        line += "  0|"
     elif (nth == 100):
-        line += "100| "
+        line += "100|"
     else :
-        line += " " + str(nth) +"| "
+        line += " " + str(nth) + "|"
 
+    line += _percLowerThanNth(nth, cleanData)
     return line
-      
+
+def _percLowerThanNth(nth, cleanData):
+    line = ""
+    for cleanRow in cleanData:
+        if (cleanRow["spent"] >= nth):
+            line += " o "
+        else:
+            line += "   "
+    line += " "
+    return line
+
+def _getNamesVert(cleanData):
+    maxLength = 0
+    for cleanRow in cleanData:
+        maxLength = max(maxLength, len(cleanRow["categ"]))
+    
+    lines = []
+    for i in range(0, maxLength, 1):
+        lines.append("    ")
+        for cleanRow in cleanData:
+            if (len(cleanRow["categ"]) > i):
+                print(cleanRow["categ"][i])
+                lines[i] += " " + cleanRow["categ"][i] + " "
+            else:
+                lines[i] += "   "
+        lines[i] += " " 
+    return lines  
 
 def create_spend_chart(categories):
     cleanData = _cleanCategories(categories)
-    print(cleanData)
-
+    
     lines = ["Percentage spent by category"]
     for i in range(100, -1, -10):
-        lines.append(_getPercentile(i, categories))
-
+        lines.append(_getPercentile(i, cleanData))
+    lines.append("    " +  ("---" * len(cleanData)) + "-")
+    lines += _getNamesVert(cleanData)
 
     line = "\n".join(lines)
-    return line + "\n--->\n"
+    return line
