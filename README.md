@@ -8,7 +8,7 @@ https://www.freecodecamp.org/espanol/photographyRaptor
 ## Certificates:
 >[Algoritmos de JavaScript y Estructuras de Datos](https://www.freecodecamp.org/espanol/certification/photographyRaptor/javascript-algorithms-and-data-structures)
 
->Análisis de Datos con Python
+>[Análisis de Datos con Python](https://www.freecodecamp.org/espanol/certification/photographyRaptor/data-analysis-with-python-v7)
 
 >Aprendizaje Automático con Python
 
