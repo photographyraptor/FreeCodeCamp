@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
-import matplotlib.colors as clr
 import pandas as pd
 import seaborn as sns
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
-df = pd.read_csv("fcc-forum-pageviews.csv").set_index("date")
+df = pd.read_csv("fcc-forum-pageviews.csv")
+df["date"] = pd.to_datetime(df["date"])
 
 # Clean data by filtering out days when the page views were in the top 2.5% of the dataset or bottom 2.5% of the dataset
 df = df.loc[
@@ -28,14 +28,22 @@ def draw_line_plot():
     return fig
 
 def draw_bar_plot():
-    # Copy and modify data for monthly bar plot
-    df_bar = None
-
+    # Copy and modify data for monthly bar plot    
+    df_bar = df.copy()
+    df_bar["month"] = df_bar["date"].dt.month
+    df_bar["year"] = df_bar["date"].dt.year    
+    df_bar = df_bar.groupby(["year", "month"])["value"].mean().unstack()
+    
     # Draw bar plot
-
-
-
-
+    ax = df_bar.plot.bar()
+    ax.legend([
+        "January", "February", "March",
+        "April", "May", "June",
+        "July", "August", "September",
+        "October", "November", "December"], title='Months')
+    ax.set_xlabel("Years")
+    ax.set_ylabel("Average Page Views")
+    fig = ax.figure
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
