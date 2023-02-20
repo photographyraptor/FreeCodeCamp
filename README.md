@@ -19,5 +19,3 @@ https://www.freecodecamp.org/espanol/photographyRaptor
 >[Diseño Web Adaptativo](https://www.freecodecamp.org/espanol/certification/photographyRaptor/responsive-web-design)
 
 >[~~Librerías de desarrollo de la interfaz~~](https://www.freecodecamp.org/espanol/certification/photographyRaptor/front-end-development-libraries)
-
->Seguridad de la información
