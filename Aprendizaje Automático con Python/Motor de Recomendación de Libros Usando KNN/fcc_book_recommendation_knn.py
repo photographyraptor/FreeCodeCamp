@@ -29,11 +29,29 @@ df_ratings = pd.read_csv(
     dtype={'user': 'int32', 'isbn': 'str', 'rating': 'float32'})
 
 # add your code here - consider creating a new cell for each section of code
+c1 = df_ratings['user'].value_counts()
+c2 = df_ratings['isbn'].value_counts()
 
+df_ratings = df_ratings[~df_ratings['user'].isin(c1[c1 < 200].index)]
+df_ratings = df_ratings[~df_ratings['isbn'].isin(c2[c2 < 100].index)]
+
+df = pd.merge(right=df_ratings, left=df_books, on='isbn')
+df = df.drop_duplicates(['title', 'user'])
+
+df_pivot = df.pivot(index = 'title', columns = 'user', values = 'rating').fillna(0)
+
+df_csr = csr_matrix(df_pivot.values)
+
+nbrs = NearestNeighbors(metric='cosine', algorithm='brute', p=2).fit(df_csr)
+titles = list(df_pivot.index.values)
 
 # function to return recommended books - this will be tested
 def get_recommends(book = ""):
-  recommended_books = None
+  if not book:
+    return 'Please enter a book title'
+
+  distances, indices = nbrs.kneighbors(df_pivot.loc[book].values.reshape(1, -1), len(titles), True)
+  recommended_books = [book, sum([[[df_pivot.index[indices.flatten()[i]], distances.flatten()[i]]] for i in range(5, 0, -1)], [])]
 
   return recommended_books
 
