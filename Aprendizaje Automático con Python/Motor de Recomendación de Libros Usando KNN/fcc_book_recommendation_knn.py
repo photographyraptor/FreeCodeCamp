@@ -28,32 +28,46 @@ df_ratings = pd.read_csv(
     usecols=['user', 'isbn', 'rating'],
     dtype={'user': 'int32', 'isbn': 'str', 'rating': 'float32'})
 
-# add your code here - consider creating a new cell for each section of code
-c1 = df_ratings['user'].value_counts()
-c2 = df_ratings['isbn'].value_counts()
+# START CODE -->
 
-df_ratings = df_ratings[~df_ratings['user'].isin(c1[c1 < 200].index)]
-df_ratings = df_ratings[~df_ratings['isbn'].isin(c2[c2 < 100].index)]
+# get counts of each user and isbn
+ratingsCountByUser = df_ratings['user'].value_counts()
+ratingsCountByIsbn = df_ratings['isbn'].value_counts()
 
-df = pd.merge(right=df_ratings, left=df_books, on='isbn')
-df = df.drop_duplicates(['title', 'user'])
+# remove ratings with less than 200 users and less than 100 isbn
+df_ratings = df_ratings.loc[
+    (~df_ratings['user'].isin(ratingsCountByUser[ratingsCountByUser < 200].index)) &
+    (~df_ratings['isbn'].isin(ratingsCountByIsbn[ratingsCountByIsbn < 100].index))]
 
-df_pivot = df.pivot(index = 'title', columns = 'user', values = 'rating').fillna(0)
+# merge ratings with books and remove duplicates to pivot
+df_merged = pd.merge(right=df_ratings, left=df_books, on='isbn')
+df_merged = df_merged.drop_duplicates(['title', 'user'])
 
-df_csr = csr_matrix(df_pivot.values)
+df_pivot = pd.pivot_table(df_merged, values="rating", index="title", columns="user", fill_value =0)
 
-nbrs = NearestNeighbors(metric='cosine', algorithm='brute', p=2).fit(df_csr)
-titles = list(df_pivot.index.values)
+# transform values to matrix
+df_csrMatrix = csr_matrix(df_pivot.values)
+
+# create model and get titles
+neighbors = NearestNeighbors(metric='cosine', algorithm='brute', p=2).fit(df_csrMatrix)
+titles = df_pivot.index.values
 
 # function to return recommended books - this will be tested
 def get_recommends(book = ""):
-  if not book:
-    return 'Please enter a book title'
+  if book == "":
+    return 'Empty book'
 
-  distances, indices = nbrs.kneighbors(df_pivot.loc[book].values.reshape(1, -1), len(titles), True)
-  recommended_books = [book, sum([[[df_pivot.index[indices.flatten()[i]], distances.flatten()[i]]] for i in range(5, 0, -1)], [])]
+  neigh_dist, neigh_ind = neighbors.kneighbors(df_pivot.loc[book].values.reshape(1, -1), len(titles), True)
+  neigh_distFlatten = neigh_dist.flatten()
+  neigh_indFlatten = neigh_ind.flatten()
 
-  return recommended_books
+  recommendedBooks = []
+  for i in range(5, 0, -1):
+    recommendedBooks.append([df_pivot.index[neigh_indFlatten[i]], neigh_distFlatten[i]])
+
+  return [book, recommendedBooks]
+
+# <-- END CODE
 
 books = get_recommends("Where the Heart Is (Oprah's Book Club (Paperback))")
 print(books)
