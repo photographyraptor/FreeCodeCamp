@@ -16,7 +16,7 @@ https://www.freecodecamp.org/espanol/photographyRaptor
 
 >[Desarrollo Back End y APIs](https://www.freecodecamp.org/espanol/certification/photographyRaptor/back-end-development-and-apis)
 
->[Diseño Web Adaptativo](https://www.freecodecamp.org/espanol/certification/photographyRaptor/responsive-web-design)
+>[~~Diseño Web Adaptativo~~](https://www.freecodecamp.org/espanol/certification/photographyRaptor/responsive-web-design)
 
 >[~~Librerías de desarrollo de la interfaz~~](https://www.freecodecamp.org/espanol/certification/photographyRaptor/front-end-development-libraries)
 
